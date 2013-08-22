@@ -1,0 +1,21 @@
+name: Main.WebHome
+customClass: null
+customMapping: null
+defaultViewSheet: null
+defaultEditSheet: null
+defaultWeb>: null
+nameField: null
+validationScript: null
+properties:
+  field:
+    customDisplay: null
+    disabled: 0
+    name: field
+    number: 1
+    picker: 0
+    prettyName: field
+    size: 30
+    unmodifiable: 0
+    validationMessage: null
+    validationRegExp: null
+    classType: com.xpn.xwiki.objects.classes.StringClass

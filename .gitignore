@@ -1,0 +1,24 @@
+# Build
+target
+
+# IDEA
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Eclipse
+.classpath
+.project
+.settings
+.checkstyle
+.fbprefs
+bin
+
+# NetBeans
+nbproject
+
+# Other
+*.log.*
+*.log
+*~
