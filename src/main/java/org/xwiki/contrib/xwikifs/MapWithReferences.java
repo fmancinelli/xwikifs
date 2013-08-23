@@ -11,14 +11,27 @@ import org.apache.commons.io.IOUtils;
 /**
  * MapWithReferences.
  *
+ * This Map implementation wraps a map that can contain "-> file" values. When such a value is found then the actual
+ * value is read from the referenced file. Files references are relative to a base directory passed to the constructor.
+ *
  * @version $Id$
  */
 public class MapWithReferences implements Map
 {
+    /**
+     * The base directory from where all references are looked for.
+     */
     private final File baseDir;
 
+    /**
+     * The wrapped map.
+     */
     protected Map map;
 
+    /**
+     * @param baseDir the base directory from where all references are looked for.
+     * @param map the wrapped map.
+     */
     public MapWithReferences(File baseDir, Map map)
     {
         this.map = map;
@@ -47,11 +60,16 @@ public class MapWithReferences implements Map
 
     @Override public Object get(Object key)
     {
+
         Object value = map.get(key);
 
         if (value instanceof Map) {
+            /* If the value is a map, we need to wrap it in a MapWithReferences in order to make the reference mechanism
+             work. */
             return new MapWithReferences(baseDir, (Map) value);
         } else if (value instanceof String) {
+            /* If the value if a String, check if it is a reference and, if it is so, return the content read
+            from the referenced file. */
             String string = (String) value;
             if (string.trim().startsWith("->")) {
                 String reference = string.substring(string.lastIndexOf("->") + 2).trim();
@@ -64,7 +82,7 @@ public class MapWithReferences implements Map
             }
         }
 
-        return map.get(key);
+        return value;
     }
 
     @Override public Object put(Object key, Object value)

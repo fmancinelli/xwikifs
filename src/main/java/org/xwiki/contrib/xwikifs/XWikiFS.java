@@ -30,6 +30,11 @@ public class XWikiFS
 
     private final File target;
 
+    /**
+     * Initialize an XWikiFS pointing to a given target.
+     *
+     * @param target the directory containing XWiki document data.
+     */
     public XWikiFS(File target)
     {
         if (!(target.exists() && target.isDirectory())) {
@@ -48,6 +53,7 @@ public class XWikiFS
 
     private void reformat(File root) throws Exception
     {
+        /* Recursively descend starting from root and reformat any file that has the appropriate extension. */
         for (File file : root.listFiles()) {
             if (file.isDirectory()) {
                 reformat(file);
@@ -85,7 +91,7 @@ public class XWikiFS
 
     public void writeXAR(OutputStream os) throws Exception
     {
-        List<XWikiDocument> xwikiDocuments = new ArrayList<XWikiDocument>();
+        /* Build a list of directories that contain XWiki document data. */
         File[] documentDirectories = target.listFiles(new FilenameFilter()
         {
             @Override public boolean accept(File dir, String name)
@@ -95,6 +101,8 @@ public class XWikiFS
             }
         });
 
+        /* Read XWiki document data from the directories. */
+        List<XWikiDocument> xwikiDocuments = new ArrayList<XWikiDocument>();
         for (File documentDirectory : documentDirectories) {
             xwikiDocuments.add(XWikiDocument.createFromDirectory(documentDirectory));
         }
@@ -103,6 +111,7 @@ public class XWikiFS
 
         ZipOutputStream zos = null;
 
+        /* Create the XAR containing the XML serialization of XWiki document data. */
         try {
             zos = new ZipOutputStream(os);
 
@@ -132,7 +141,7 @@ public class XWikiFS
                 zos.flush();
                 zos.close();
 
-                logger.info("Building XAR done" );
+                logger.info("Building XAR done");
             }
         }
     }

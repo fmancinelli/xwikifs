@@ -19,6 +19,8 @@ import org.xwiki.contrib.xwikifs.model.XWikiObject;
 /**
  * XARUtils.
  *
+ * Utility functions for generating XWiki XML data.
+ *
  * @version $Id$
  */
 public class XARUtils
@@ -27,6 +29,12 @@ public class XARUtils
 
     private static final String DEFAULT_VERSION = "1.1";
 
+    /**
+     * Create a package.xml document.
+     *
+     * @param xwikiDocuments the XWiki documents to be included in the package.xml
+     * @return the package.xml document.
+     */
     public static Document getPackageDocument(List<XWikiDocument> xwikiDocuments)
     {
         Document packageDocument = DocumentHelper.createDocument();
@@ -50,6 +58,13 @@ public class XARUtils
         return packageDocument;
     }
 
+    /**
+     * Generate the XML serialization for an XWiki document.
+     *
+     * @param xwikiDocument the XWiki document to be serialized.
+     * @return the serialized XML data.
+     * @throws Exception if an error occurs.
+     */
     public static Document getXWikiDocumentXML(XWikiDocument xwikiDocument) throws Exception
     {
         return getXWikiDocumentXML(xwikiDocument, new HashMap<String, String>());
@@ -96,7 +111,7 @@ public class XARUtils
 
         /* Add class */
         XWikiClass xwikiClass = xwikiDocument.getXWikiClass();
-        if(xwikiClass != null) {
+        if (xwikiClass != null) {
             Document xwikiClassDocument = XARUtils.getXWikiClassXML(xwikiClass);
             root.add(xwikiClassDocument.getRootElement());
         }
@@ -131,6 +146,13 @@ public class XARUtils
         return result;
     }
 
+    /**
+     * Generate the XML serialization for an XWiki object.
+     *
+     * @param xwikiObject the XWiki object to be serialized.
+     * @return the serialized XML data.
+     * @throws Exception if an error occurs.
+     */
     private static Document getXWikiObjectXML(XWikiObject xwikiObject)
     {
         Document result = DocumentHelper.createDocument();
@@ -160,6 +182,13 @@ public class XARUtils
         return result;
     }
 
+    /**
+     * Generate the XML serialization for an XWiki class.
+     *
+     * @param xwikiClass the XWiki class to be serialized.
+     * @return the serialized XML data.
+     * @throws Exception if an error occurs.
+     */
     private static Document getXWikiClassXML(XWikiClass xwikiClass)
     {
         Document result = DocumentHelper.createDocument();

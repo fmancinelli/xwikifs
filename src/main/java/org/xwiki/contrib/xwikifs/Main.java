@@ -11,7 +11,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /**
- * Hello world!
+ * Main entry point for invoking XWikiFS operations from the command line.
  */
 public class Main
 {
@@ -37,7 +37,6 @@ public class Main
         if (commandLine.hasOption(ROOT_OPTION_NAME)) {
             root = new File(commandLine.getOptionValue(ROOT_OPTION_NAME));
         }
-
 
         if (commandLine.getArgs().length == 0) {
             printHelp();
