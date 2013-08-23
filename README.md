@@ -17,7 +17,7 @@ The directory structure must comply with the following layout:
     |  |  |
     |  |  +- Space.Name1.xwc
     |  |  +- ...
-    |  +- Space.Name:N.xwo
+    |  +- Space.Name-N.xwo
     |  +- ...
     +- attachments (optional)
        |

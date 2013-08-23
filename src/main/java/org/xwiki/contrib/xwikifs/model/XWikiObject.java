@@ -47,9 +47,13 @@ public class XWikiObject
             objectName = objectName.substring(0, objectName.lastIndexOf(Constants.OBJECT_FILE_EXTENSION));
         }
 
-        String[] parts = objectName.split(":", 2);
+        String[] parts = objectName.split("-", 2);
         if (parts.length != 2) {
-            throw new IllegalArgumentException("Filename must be in the form of ClassName:Number");
+            throw new IllegalArgumentException("Filename must be in the form of Space.Class-Number");
+        }
+
+        if (!parts[0].contains(".")) {
+            throw new IllegalArgumentException("Filename doesn't contain a valid Space.Class reference");
         }
 
         result.className = parts[0];
