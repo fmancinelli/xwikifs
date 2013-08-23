@@ -7,13 +7,14 @@ import java.io.FilenameFilter;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xwiki.contrib.xwikifs.model.XWikiDocument;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -25,7 +26,7 @@ import org.yaml.snakeyaml.Yaml;
  */
 public class XWikiFS
 {
-    protected static final Logger logger = Logger.getLogger(XWikiFS.class.getName());
+    protected static final Logger logger = LoggerFactory.getLogger(XWikiFS.class);
 
     private final File target;
 
@@ -117,7 +118,7 @@ public class XWikiFS
                 xmlWriter.write(XARUtils.getXWikiDocumentXML(xwikiDocument));
                 zos.closeEntry();
 
-                logger.info(String.format("Added %s.%s", xwikiDocument.getSpace(), xwikiDocument.getName()));
+                logger.info(String.format("  Added %s.%s", xwikiDocument.getSpace(), xwikiDocument.getName()));
             }
 
             ZipEntry entry = new ZipEntry("package.xml");
@@ -125,11 +126,13 @@ public class XWikiFS
             xmlWriter.write(XARUtils.getPackageDocument(xwikiDocuments));
             zos.closeEntry();
 
-            logger.info("Added package.xml");
+            logger.info("  Added package.xml");
         } finally {
             if (zos != null) {
                 zos.flush();
                 zos.close();
+
+                logger.info("Building XAR done" );
             }
         }
     }
