@@ -38,7 +38,7 @@ public class XARMojo extends AbstractMojo
         }
 
         File outputFile = new File(outputDirectory,
-                String.format("%s-%s.xar", project.getArtifactId(), project.getArtifact().getVersion()));
+                String.format("%s.xar", project.getArtifactId()));
 
         log.info(String.format("Writing XAR to %s...", outputFile));
 
@@ -60,6 +60,8 @@ public class XARMojo extends AbstractMojo
                 }
             }
         }
+
+        project.getArtifact().setFile(outputFile);
     }
 
     protected File getResourcesDirectory()
