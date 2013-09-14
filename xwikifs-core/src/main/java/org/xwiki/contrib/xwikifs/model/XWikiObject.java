@@ -69,9 +69,7 @@ public class XWikiObject
 
         result.xwikiClass = XWikiClass.createFromFile(xwikiClassFile);
 
-        Yaml yaml = new Yaml();
-        Map yamlMap = (Map) yaml.load(new FileInputStream(target));
-        result.properties = new MapWithReferences(target.getParentFile(), yamlMap);
+        result.properties = MapWithReferences.fromYaml(target);
 
         /* Check that every property in the object has a corresponding description in the class file. */
         for (Object key : result.properties.keySet()) {

@@ -1,0 +1,8 @@
+a: a
+b: -> b
+c:
+  ca: ca
+  cb: -> cb
+  cc:
+    cca: cca
+    ccb: -> ccb

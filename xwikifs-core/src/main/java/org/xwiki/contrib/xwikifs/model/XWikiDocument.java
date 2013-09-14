@@ -67,11 +67,9 @@ public class XWikiDocument
         /* Parse the content. */
         File documentFile = new File(target, Constants.DOCUMENT_FILE_NAME);
         if (documentFile.exists()) {
-            Yaml yaml = new Yaml();
-            Map yamlMap = (Map) yaml.load(new FileInputStream(documentFile));
-            result.data = new MapWithReferences(documentFile.getParentFile(), yamlMap);
+            result.data = MapWithReferences.fromYaml(documentFile);
         } else {
-            result.data = new MapWithReferences(documentFile.getParentFile(), new LinkedHashMap());
+            result.data = new MapWithReferences();
         }
 
         /* Parse the class if it exists. */

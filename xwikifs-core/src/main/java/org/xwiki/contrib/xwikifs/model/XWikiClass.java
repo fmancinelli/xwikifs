@@ -29,9 +29,7 @@ public class XWikiClass
 
         XWikiClass result = new XWikiClass();
 
-        Yaml yaml = new Yaml();
-        Map yamlMap = (Map) yaml.load(new FileInputStream(target));
-        result.data = new MapWithReferences(target.getParentFile(), yamlMap);
+        result.data = MapWithReferences.fromYaml(target);
 
         return result;
     }
