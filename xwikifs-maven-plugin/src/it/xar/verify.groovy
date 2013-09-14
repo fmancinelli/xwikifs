@@ -1,4 +1,4 @@
-File touchFile = new File(basedir, "target/xar-test-1.0-SNAPSHOT.xar" );
+File touchFile = new File(basedir, "target/xar-test.xar" );
 
 assert touchFile.isFile()
 return true
