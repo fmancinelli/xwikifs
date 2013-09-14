@@ -124,7 +124,7 @@ public class XWikiFS
                         new ZipEntry(String.format("%s/%s.xml", xwikiDocument.getSpace(), xwikiDocument.getName()));
                 zos.putNextEntry(entry);
 
-                xmlWriter.write(XARUtils.getXWikiDocumentXML(xwikiDocument));
+                xmlWriter.write(XARUtils.getXMLFromXWikiDocument(xwikiDocument));
                 zos.closeEntry();
 
                 logger.info(String.format("  Added %s.%s", xwikiDocument.getSpace(), xwikiDocument.getName()));

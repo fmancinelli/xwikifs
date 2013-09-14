@@ -65,12 +65,12 @@ public class XARUtils
      * @return the serialized XML data.
      * @throws Exception if an error occurs.
      */
-    public static Document getXWikiDocumentXML(XWikiDocument xwikiDocument) throws Exception
+    public static Document getXMLFromXWikiDocument(XWikiDocument xwikiDocument) throws Exception
     {
-        return getXWikiDocumentXML(xwikiDocument, new HashMap<String, String>());
+        return getXMLFromXWikiDocument(xwikiDocument, new HashMap<String, String>());
     }
 
-    public static Document getXWikiDocumentXML(XWikiDocument xwikiDocument, Map<String, String> overrides)
+    public static Document getXMLFromXWikiDocument(XWikiDocument xwikiDocument, Map<String, String> overrides)
             throws Exception
     {
         Document result = DocumentHelper.createDocument();
@@ -112,7 +112,7 @@ public class XARUtils
         /* Add class */
         XWikiClass xwikiClass = xwikiDocument.getXWikiClass();
         if (xwikiClass != null) {
-            Document xwikiClassDocument = XARUtils.getXWikiClassXML(xwikiClass);
+            Document xwikiClassDocument = XARUtils.getXMLFromXWikiClass(xwikiClass);
             root.add(xwikiClassDocument.getRootElement());
         }
 
@@ -120,7 +120,7 @@ public class XARUtils
         List<XWikiObject> xwikiObjects = xwikiDocument.getObjects();
         if (xwikiObjects != null) {
             for (XWikiObject xwikiObject : xwikiObjects) {
-                Document objectDocument = XARUtils.getXWikiObjectXML(xwikiObject);
+                Document objectDocument = XARUtils.getXMLFromXWikiObject(xwikiObject);
                 root.add(objectDocument.getRootElement());
             }
         }
@@ -153,7 +153,7 @@ public class XARUtils
      * @return the serialized XML data.
      * @throws Exception if an error occurs.
      */
-    private static Document getXWikiObjectXML(XWikiObject xwikiObject)
+    private static Document getXMLFromXWikiObject(XWikiObject xwikiObject)
     {
         Document result = DocumentHelper.createDocument();
 
@@ -161,7 +161,7 @@ public class XARUtils
 
         XWikiClass xwikiClass = xwikiObject.getXWikiClass();
         if (xwikiClass != null) {
-            root.add(getXWikiClassXML(xwikiClass).getRootElement());
+            root.add(getXMLFromXWikiClass(xwikiClass).getRootElement());
         }
 
         root.addElement("name").addText(
@@ -189,7 +189,7 @@ public class XARUtils
      * @return the serialized XML data.
      * @throws Exception if an error occurs.
      */
-    private static Document getXWikiClassXML(XWikiClass xwikiClass)
+    private static Document getXMLFromXWikiClass(XWikiClass xwikiClass)
     {
         Document result = DocumentHelper.createDocument();
 
